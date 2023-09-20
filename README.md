@@ -22,34 +22,33 @@ Como consequência direta da definição, são utilizados para geração de sina
 
 **Implementação em C:**
 
-    ```c
-    #include <avr/io.h>
-    #include <avr/interrupt.h>
-    #include <util/delay.h>
+```c
+#include <avr/io.h>
+#include <avr/interrupt.h>
+#include <util/delay.h>
 
-    int main(void){              
-        DDRG = 0b00100000;
-        TCCR0A = 0b00000000;
-        TCCR0B = 0b00000001;
-        TIMSK0 = 0b00000001;
-        sei(); 
-        
-        while(1){ }
-        
-        return 0;
+int main(void){              
+    DDRG = 0b00100000;
+    TCCR0A = 0b00000000;
+    TCCR0B = 0b00000001;
+    TIMSK0 = 0b00000001;
+    sei(); 
+    
+    while(1){ }
+    
+    return 0;
+}
+
+ISR(TIMER0_OVF_vect){
+    if(PING & 0b00100000){
+        PORTG = 0b00000000;
+    }else{
+        PORTG = 0b00100000;
     }
+}
+```
 
-    ISR(TIMER0_OVF_vect){
-        if(PING & 0b00100000){
-            PORTG = 0b00000000;
-        }else{
-            PORTG = 0b00100000;
-        }
-    }
-    ```
-
-    Etapas do código:
-
+* Etapas do código:
     1. Incluir as bibliotecas
     2. Configurar os registradores
     3. Habilitar as interrupções globais
