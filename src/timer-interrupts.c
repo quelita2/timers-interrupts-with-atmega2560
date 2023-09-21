@@ -2,7 +2,6 @@
 #include <avr/interrupt.h>
 #include <util/delay.h>
 
-
 int main(void){              
   DDRG = 0b00100000;
   TCCR0A = 0b00000000;

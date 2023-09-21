@@ -1,26 +1,40 @@
-# Temporizadores e Contadores no ATmega2560
+# Timers and Counters on the ATmega2560 ⌛
 
-O objetivo dessa vez foi compreender o conceito de temporizadores/contadores em microcontroladores. Para isso, utilizamos o exemplo prático de ligar um LED para explorar e aprender como usá-los no ATmega2560.
+The objective of this project is to understand the concept of timers/counters in microcontrollers. To do this, we use the practical example of connecting an LED to explore and learn how to use them on the ATmega2560.
 
->Definição: Um temporizador é um componente eletrônico que gera atrasos de tempo ou realiza a contagem de eventos em intervalos regulares.
+> Definition: A timer is an electronic component that generates time delays or counts events at regular intervals.
 
-Como consequência direta da definição, são utilizados para geração de sinais periódicos e eventos, como também contam pulso de clock interno ou externo.
+As a direct consequence of the definition, they are used to generate periodic signals and events, as well as internal or external clock pulses.
 
-** Temporizadores/Contadores são importantes em sistemas embarcados por estarem associados com precisão de tempo, controle de sequência, medições temporais e PWM (Modulação por Largura de Pulso). **
+<small>*Timers/Counters are important in embedded systems because they are associated with time precision, sequence control, temporal measurements and PWM (Pulse Width Modulation).*</small>
 
 ## 📦 Components
 
+|Name  |Quantity|Component                  |
+|------|--------|---------------------------|
+|U1    |1       | Arduino Mega ATMega2560¹   |
+|D1    |1       | RED LED                   |
+|R1    |1       | 100 Ω Resistor            |
+
+## Circuit used ⚡
+
+|Schematic¹  | Preview¹ |
+|------|--------|
+|![Schematic](./assets/imgs/timers-interrupts-schematic.png)|![Preview](./assets/imgs/timers-interrupts-preview.png)|
+
+> 1. *In the preview and schematic built in tinkercad and shown above, it is necessary to note that the Arduino Uno was used with the ATMega328p microcontroller. However, this assembly was only used for simulation. The circuit structure followed the same for the laboratory with the difference that the Arduino used in practice for the experiment was the Arduino Mega with ATMega2560 microcontroller.*
 
 ## 🤖 Settings
-- Temporizadores no modo de operação Normal (tabela 16-8 do [DataSheet](docs/Atmega2560_-__Datasheet.pdf)), que é o modo mais simples de operação **TC0 Modo Normal**.
-- A habilitação da interrupção é gerada no estouro (overflow). Ocorre estouro quando retorna para 0 e o bit sinalizador de estouro TOV0 é colocado em 1.
+- Timers in Normal mode of operation (table 16-8 of [DataSheet](./assets/docs/Atmega2560-Datasheet.pdf)), which is the simplest mode of operation ***TC0 Normal Mode***.
+- Interrupt enablement is generated upon overflow. Overflow occurs when it returns to `0` and the `TOV0` overflow flag bit is set to `1`.
 
-    Para utlização do TC0 é necessário a configuração de três registradores:
-    - TCCR0A (Modo de configuração)
-    - TCCR0B (Configuração de prescaler)
-    - TIMSK0 (Habilitação da interrupção)
+    To use `TC0`, it is necessary to configure three registers:
+    
+    - `TCCR0A` (Configuration mode);
+    - `TCCR0B` (Prescaler configuration);
+    - `TIMSK0` (Interrupt enablement).
 
-**Implementação em C:**
+## Implementation in C
 
 ```c
 #include <avr/io.h>
@@ -48,18 +62,25 @@ ISR(TIMER0_OVF_vect){
 }
 ```
 
-* Etapas do código:
-    1. Incluir as bibliotecas
-    2. Configurar os registradores
-    3. Habilitar as interrupções globais
-    4. Aplicar o programa principal no loop
-    5. Aplicar a rotina de interrupção
+* Code steps:
+    1. Include the libraries
+    2. Configure the loggers
+    3. Enable global outages
+    4. Apply the main program to the loop
+    5. Apply the interrupt routine
 
 ## 🔬 Prática Laboratorial
 
-Na prática laboratorial trabalhamos em analisar a geração de sinais por meio do temporizador, no exemplo prático e básico de acender um LED. Veja nossos resultados acessando o [link](https://youtu.be/ZxBM4SYjZ8c).
+In laboratory practice we work on analyzing the generation of signals using the timer, in the practical and basic example of turning on an LED. See our results by accessing [link](https://youtu.be/ZxBM4SYjZ8c).
 
 ## ✍️ Authors
-- [Ernane Ferreira](https://github.com/ernanej)
-- [Quelita Míriam](https://github.com/quelita2)
-- [Thiago Lopes](https://github.com/thiagonasmto)
+- [Ernane Ferreira](https://github.com/ernanej) 🧑🏼‍💻
+- [Quelita Míriam](https://github.com/quelita2) 👩🏼‍💻
+- [Thiago Lopes](https://github.com/thiagonasmto) 🧑🏼‍💻
+
+---
+
+<div align="center">
+  DCA0119 - Digital Systems (2023.1) <br/>
+  Federal University of Rio Grande do Norte - Department of Computer and Automation Engineering (DCA).
+</div>
