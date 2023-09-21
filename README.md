@@ -1,4 +1,4 @@
-# Temporizadores e Contadores no ATmega2560 ⌛
+# Timers and Counters on the ATmega2560 ⌛
 
 The objective of this project is to understand the concept of timers/counters in microcontrollers. To do this, we use the practical example of connecting an LED to explore and learn how to use them on the ATmega2560.
 
